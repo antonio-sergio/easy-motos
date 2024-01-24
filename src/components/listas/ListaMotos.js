@@ -1,14 +1,12 @@
-import { Box, Button, CardMedia, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import motoServico from "../../services/motos/motos-service";
-import { Link } from "react-router-dom";
 import { localizedTextsMap } from "../../utils/localizedTextMap";
 import { DataGrid } from '@mui/x-data-grid';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
 import { toast, ToastContainer } from 'react-toastify';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const ListaMotos = () => {
     const [motos, setMotos] = useState([]);
@@ -47,7 +45,6 @@ const ListaMotos = () => {
         selectedMoto.modelo_id = selectedModelo.id || selectedModelo;
         motoServico.editarMoto(selectedMoto).then(response => {
             if (response.status === 200) {
-                console.log('editado com sucesso')
                 setOpenModal(false);
                 setEditado(!editado);
                 toast.success('Moto editada com sucesso')
@@ -73,15 +70,9 @@ const ListaMotos = () => {
         },
         { field: 'id', headerName: 'ID', width: 50 },
         { field: 'nome', headerName: 'Nome Modelo', width: 150, editable: true, valueGetter: (params) => params.row.modelo.nome },
-        { field: 'chassi', headerName: 'Chassi', width: 120, editable: true, valueGetter: (params) => params.row.chassi },
+        { field: 'chassi', headerName: 'Chassi', width: 120, editable: true},
+        { field: 'placa', headerName: 'Placa', width: 120, editable: true},
         { field: 'cor', headerName: 'Cor', width: 100, editable: true },
-        {
-            field: 'alugado', headerName: 'Alugado', width: 100, editable: true, renderCell: (params) => (
-                <Typography>
-                    {params.row.alugado ? <CheckBoxIcon color="success" /> : <CloseIcon color="error" />}
-                </Typography>
-            )
-        }
     ];
 
 
@@ -130,28 +121,21 @@ const ListaMotos = () => {
                     ))}
                 </Select>
 
-                <InputLabel color='warning' sx={{ width: '100%',fontSize: 12, color: 'grey' }}>Alugado</InputLabel>
-                <Select
-                    labelId="alugado"
-                    color='warning'
-                    label="Alugado"
-                    size='small'
-                    defaultValue={selectedMoto?.alugado}
-                    onChange={(e) => setSelectedMoto({ ...selectedMoto, alugado: e.target.value })}
-                    sx={{ width: '100%', height: 30, color: "#ed6c02" }}
-                    variant="standard"
-                >
-                    <MenuItem  value={true}>
-                        <Typography >Sim</Typography>
-                    </MenuItem>
-                    <MenuItem  value={false}>
-                        <Typography >Não</Typography>
-                    </MenuItem>
-                </Select>
                 <TextField
                     label="Chassi"
                     defaultValue={selectedMoto?.chassi || ''}
                     onChange={(e) => setSelectedMoto({ ...selectedMoto, chassi: e.target.value })}
+                    fullWidth
+                    margin="normal"
+                    color="warning"
+                    variant="standard"
+
+                />
+
+                <TextField
+                    label="Chassi"
+                    defaultValue={selectedMoto?.placa || ''}
+                    onChange={(e) => setSelectedMoto({ ...selectedMoto, placa: e.target.value })}
                     fullWidth
                     margin="normal"
                     color="warning"

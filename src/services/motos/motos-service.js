@@ -1,38 +1,46 @@
 import axios from "axios";
 
 class MotoServico {
-    getModelos(){
+    getModelos() {
         return axios.get(`http://localhost:3001/modelo`)
     }
-    getAlugueis(){
+    getAlugueis() {
         return axios.get(`http://localhost:3001/aluguel`)
     }
-    getMotos(){
+    getAlugueisByUsuario(id) {
+        return axios.get(`http://localhost:3001/aluguel/usuario/${id}`)
+    }
+    getMotos() {
         return axios.get(`http://localhost:3001/moto`)
     }
-    getMotosByModelo(id){
+    getMotosByModelo(id) {
         return axios.get(`http://localhost:3001/moto/modelo/${id}`)
     }
-    cadastrarModelo(dados){
+    getMotosDisponivelByModelo(dados) {
+        return axios.get(`http://localhost:3001/moto/disponiveis?data_retirada=${dados.data_retirada}&data_devolucao=${dados.data_devolucao}&modelo_id=${dados.modelo_id}`)
+    }
+    cadastrarModelo(dados) {
         return axios.post(`http://localhost:3001/modelo`, dados)
     }
-    cadastrarUsuario(dados){
+    cadastrarUsuario(dados) {
         return axios.post(`http://localhost:3001/usuario`, dados)
     }
-    cadastrarMoto(dados){
+    cadastrarMoto(dados) {
         return axios.post(`http://localhost:3001/moto`, dados)
     }
-    editarModelo(dados){
+    editarModelo(dados) {
         return axios.put(`http://localhost:3001/modelo/${dados.id}`, dados)
-
     }
-    editarMoto(dados){
+    editarMoto(dados) {
         return axios.put(`http://localhost:3001/moto/${dados.id}`, dados)
     }
-    alugarMoto(dados){
+    editarAluguel(dados) {
+        return axios.put(`http://localhost:3001/aluguel/${dados.id}`, dados)
+    }
+    alugarMoto(dados) {
         return axios.post(`http://localhost:3001/aluguel`, dados)
     }
-    
+
 }
 
 const motoServico = new MotoServico();

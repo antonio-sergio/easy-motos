@@ -1,13 +1,13 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Box, Button, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import motoServico from "../services/motos/motos-service";
-import InputMask from 'react-input-mask';
 
 const CadastroMoto = () => {
     const [moto, setMoto] = useState({
         modelo_id: '',
         chassi: '',
         cor: '',
+        placa: ''
     });
 
     const [cadastrado, setCadastrado] = useState(false);
@@ -18,7 +18,6 @@ const CadastroMoto = () => {
     useEffect(() => {
         motoServico.getModelos().then(response => {
             setModelos(response.data);
-            console.log('response data', response.data)
         }).catch(error => console.log(error))
     }, [])
 
@@ -34,9 +33,7 @@ const CadastroMoto = () => {
         e.preventDefault();
         setError(false);
         moto.modelo_id = selectedModelo.id;
-        console.log('moto', moto)
-        motoServico.cadastrarMoto(moto).then(response => {
-            console.log('moto cadastrado');
+        motoServico.cadastrarMoto(moto).then(() => {
             setCadastrado(true);
             clear()
         }).catch(error => {
@@ -51,6 +48,7 @@ const CadastroMoto = () => {
             modelo_id: '',
             chassi: '',
             cor: '',
+            placa: ''
         })
     }
     const Resultado = () => {
@@ -98,6 +96,22 @@ const CadastroMoto = () => {
                 </Select>
 
                 <TextField
+                    label="Placa"
+                    name="placa"
+                    value={moto.placa}
+                    onChange={handleInputChange}
+                    margin="normal"
+                    variant="standard"
+                    sx={{ width: 350 }}
+                    color="warning"
+                    InputLabelProps={{
+                        style: { color: '#ed6c02' },
+                    }}
+                    required
+
+                />
+
+                <TextField
                     label="Chassi"
                     name="chassi"
                     value={moto.chassi}
@@ -126,7 +140,6 @@ const CadastroMoto = () => {
                     }}
                     required
                 />
-
 
                 <Button
                     variant="contained"

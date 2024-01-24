@@ -1,7 +1,6 @@
-import { Box, Button, CardMedia, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField, Typography } from "@mui/material"
+import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import motoServico from "../../services/motos/motos-service";
-import { Link } from "react-router-dom";
 import { localizedTextsMap } from "../../utils/localizedTextMap";
 import { DataGrid } from '@mui/x-data-grid';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -24,7 +23,6 @@ const ListaModelos = () => {
 
     const handleShow = async (modelo) => {
         setSelectedModelo(modelo);
-        console.log('selectedModelo', selectedModelo)
         setOpenModal(true);
     }
 
@@ -33,10 +31,8 @@ const ListaModelos = () => {
     }
 
     const handleSaveModelo = () => {
-        console.log('selectedModelo', selectedModelo)
         motoServico.editarModelo(selectedModelo).then(response => {
             if (response.status === 200) {
-                console.log('editado com sucesso')
                 setOpenModal(false);
                 setEditado(!editado);
                 toast.success('Modelo editado com sucesso')

@@ -1,5 +1,5 @@
-import { Box, Card, CardMedia, Divider, Typography } from "@mui/material";
-import React, { Component, useEffect, useState } from "react";
+import { Box, CardMedia, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import motoServico from "../services/motos/motos-service";
 import { Link } from "react-router-dom";

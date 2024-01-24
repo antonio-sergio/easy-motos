@@ -1,7 +1,6 @@
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react";
 import motoServico from "../services/motos/motos-service";
-import InputMask from 'react-input-mask';
 
 const CadastroModelo = () => {
     const [modelo, setModelo] = useState({
@@ -28,7 +27,6 @@ const CadastroModelo = () => {
         e.preventDefault();
         setError(false);
         motoServico.cadastrarModelo(modelo).then(response => {
-            console.log('modelo cadastrado');
             setCadastrado(true);
             clear()
         }).catch(error => {

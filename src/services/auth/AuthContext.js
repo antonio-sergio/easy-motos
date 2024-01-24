@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,11 +15,6 @@ export const AuthContextProvider = ({ children }) => {
     return null;
   });
 
-  // useEffect(() => {
-  //       if (!localStorage.getItem("dados")) {
-  //         navigate("/login");
-  //       }
-  // }, [user, navigate]);
 
   const login = async (payload) => {
     localStorage.removeItem("dados");
@@ -28,7 +23,6 @@ export const AuthContextProvider = ({ children }) => {
       payload
     );
 
-    console.log('respose login', apiResponse);
     if (apiResponse.status === 200) {
       localStorage.setItem(
         "dados",
@@ -37,7 +31,6 @@ export const AuthContextProvider = ({ children }) => {
       setUser(apiResponse.data);
       navigate("/");
     } else {
-      console.log("else resonse api");
       return null;
     }
   };

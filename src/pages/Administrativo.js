@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ListaModelos from "../components/listas/ListaModelos";
 import ListaMotos from "../components/listas/ListaMotos";
 import ListaAlugueis from "../components/listas/ListaAlugueis";
+import ListaUsuarios from "../components/listas/ListaUsuarios";
 
 
 const Administrativo = () => {
@@ -15,6 +16,7 @@ const Administrativo = () => {
         <Button color={selectedComponent === 'alugueis' ? 'warning' : 'inherit'} key="alugueis" onClick={() => setSelectedComponet('alugueis')}>Aluguéis</Button>,
         <Button color={selectedComponent === 'modelos' ? 'warning' : 'inherit'} key="three" onClick={() => setSelectedComponet('modelos')}>Modelos</Button>,
         <Button color={selectedComponent === 'motos' ? 'warning' : 'inherit'} key="three" onClick={() => setSelectedComponet('motos')}>Motos</Button>,
+        <Button color={selectedComponent === 'usuarios' ? 'warning' : 'inherit'} key="three" onClick={() => setSelectedComponet('usuarios')}>Usuários</Button>,
     ];
 
     const renderComponent = () => {
@@ -27,6 +29,10 @@ const Administrativo = () => {
                 return <ListaModelos />
             case 'motos':
                 return <ListaMotos />
+            case 'usuarios':
+                return <ListaUsuarios />
+            default:
+                return <ListaUsuarios />
         }
     }
 

@@ -2,25 +2,26 @@ import { Box, Button, CardMedia, Dialog, DialogActions, DialogContent, DialogTit
 import { localizedTextsMap } from "../../utils/localizedTextMap";
 import { DataGrid } from '@mui/x-data-grid';
 import motoServico from "../../services/motos/motos-service";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PlagiarismIcon from '@mui/icons-material/Plagiarism';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from "moment";
-import { ToastContainer, toast } from "react-toastify";
+import AuthContext from "../../services/auth/AuthContext";
+import Nav from "../Nav";
 
 
-const ListaAlugueis = () => {
+const ListaAlugueisByUsuario = () => {
+    const { user } = useContext(AuthContext);
     const [alugueis, setAlugueis] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedAluguel, setSelectedAluguel] = useState(null);
-    const [editado, setEditado] = useState(null);
 
 
     useEffect(() => {
-        motoServico.getAlugueis().then(response => {
+        motoServico.getAlugueisByUsuario(user?.id).then(response => {
             setAlugueis(response.data)
         }).catch(error => console.log(error))
-    }, [editado]);
+    }, [user.id]);
 
     const handleShow = async (aluguel) => {
         setSelectedAluguel(aluguel);
@@ -64,23 +65,12 @@ const ListaAlugueis = () => {
     }
 
 
-    const handleEditAluguel = (option) => {
-        selectedAluguel.devolvido = option;
-        motoServico.editarAluguel(selectedAluguel).then(response => {
-            if (response.status === 200) {
-                setEditado(!editado);
-                toast.success('Aluguel finalizado com sucesso')
-            }
-        }).catch(error => {
-            console.log(error);
-            toast.error('Não foi possível finalizar o aluguel')
-        });
-    }
-    return <Box>
-        <ToastContainer />
-        <Box ml={1} width={900}>
+
+    return <Box bgcolor={"black"} height={"100vh"}>
+        <Nav />
+        <Box ml={4} width={900} height={"80vh"} mt={5}>
             <Typography p={1} color={"white"}>
-                LISTA DE ALUGUÉIS
+                MEUS ALUGUÉIS
             </Typography>
             <DataGrid
                 sx={{ color: '#fff' }}
@@ -146,12 +136,6 @@ const ListaAlugueis = () => {
                             <ListItem key={4}><Typography color={"#BD4301"}>DT Devolução: </Typography><Typography ml={2} color={"white"}>{formatData(selectedAluguel?.data_devolucao)}</Typography></ListItem>
                             <ListItem key={5}><Typography color={"#BD4301"}>Devolvido: </Typography><Typography ml={2} color={"white"}>{selectedAluguel?.devolvido === true ? "Sim" : "Não"}</Typography></ListItem>
                         </List>
-                        <Box>
-                            {selectedAluguel?.devolvido === true ?
-                                <Button variant="contained" color="warning" onClick={() => handleEditAluguel(false)}>Reverter Finalização</Button> :
-                                <Button variant="contained" color="warning" onClick={() => handleEditAluguel(true)}>Finalizar</Button>
-                            }
-                        </Box>
                         <Box display={"flex"} height={20} mr={2} justifyContent={"flex-end"} alignItems={"flex-end"}>
                             <Typography color={"#BD4301"} fontWeight={700}>
                                 Total(R$):
@@ -175,4 +159,4 @@ const ListaAlugueis = () => {
     </Box>
 }
 
-export default ListaAlugueis;
+export default ListaAlugueisByUsuario;

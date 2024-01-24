@@ -1,17 +1,9 @@
-import AuthContext from "../services/auth/AuthContext";
-import { useContext, useEffect, useState } from 'react';
-import userService from "../services/user/user-service";
-import { Box, Button, ButtonGroup, Card, CardContent, Container, Grid, Typography } from "@mui/material";
+
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import Carrossel from "../components/Carrossel";
-import { Link } from "react-router-dom";
-import motoServico from "../services/motos/motos-service";
 import Nav from "../components/Nav";
 
-
 const Home = () => {
-  const { user } = useContext(AuthContext);
-
-  console.log('user', user)
 
   return (
     <Box width={"100%"} height={"99vh"} sx={{ overflow: "hidden", backgroundColor: "black" }}>
@@ -57,7 +49,6 @@ const Home = () => {
               </CardContent>
             </Card>
           </Grid>
-
 
         </Grid>
       </Box>

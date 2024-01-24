@@ -5,7 +5,6 @@ import AuthContext from "../auth/AuthContext";
 const ProtectedRoute = ({ children, accessBy }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-    console.log('user', user)
 
     useEffect(() => {
         if (accessBy === "authenticated" && !user) {

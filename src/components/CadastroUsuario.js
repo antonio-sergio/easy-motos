@@ -1,7 +1,6 @@
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react";
 import motoServico from "../services/motos/motos-service";
-import InputMask from 'react-input-mask';
 import { Link } from "react-router-dom";
 
 const CadastroUsuario = () => {
@@ -31,14 +30,12 @@ const CadastroUsuario = () => {
         e.preventDefault();
         setError(false);
         motoServico.cadastrarUsuario(usuario).then(response => {
-            console.log('usuario cadastrado');
             setCadastrado(true);
             clear()
         }).catch(error => {
             console.log(error);
             setError(true);
             setMsgError(error.response.data.message);
-            console.log('error.data.message', error.response.data.message)
         })
     };
 
@@ -55,12 +52,12 @@ const CadastroUsuario = () => {
     }
     const Resultado = () => {
         return <Box display={"flex"} justifyContent={"center"} flexDirection={"column"}>
-            <Typography color={"white"}>
+            <Typography color={"white"} mb={2}>
                 Cadastrado com sucesso
             </Typography>
-            <Button onClick={() => setCadastrado(false)} color="warning">
-                novo cadastro
-            </Button>
+            <Link to={"/login"} style={{backgroundColor: "#e65100", padding: 5, borderRadius: 5, textAlign: "center"}}>
+                Ir para o Login
+            </Link>
         </Box>
     }
 

@@ -17,10 +17,9 @@ const Nav = () => {
         <Box width={600} height={50} flex sx={{ display: "flex", justifyContent: "space-between", backgroundColor: "#BD4301" }}>
             <Button sx={{ width: 100, color: "white" }}><Link to={"/motos"}>Motos</Link></Button>
             {user?.acesso === 'admin' && <Button sx={{ width: 120, color: "white" }}><Link to={"/administrativo"}>Administrativo</Link> </Button>}
-            {user?.acesso === 'cliente' && <Button sx={{ width: 120, color: "white" }}>Meus aluguéis</Button>}
-            {user?.acesso === 'cliente' && <Button sx={{ width: 120, color: "white" }}>Minha Conta</Button>}
+            {user?.acesso === 'cliente' && <Button sx={{ width: 140, color: "white" }}><Link to={"/meus_alugueis"}>Meus aluguéis</Link></Button>}
 
-            <Button onClick={logout} sx={{ width: 120, color: "white" }}>Logout</Button>
+            <Button onClick={logout} sx={{ width: 120, color: "black" }}>Logout</Button>
         </Box>
     </Box>
 }
